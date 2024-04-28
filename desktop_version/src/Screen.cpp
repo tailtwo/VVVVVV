@@ -21,8 +21,8 @@ extern "C"
 
 ScreenSettings::ScreenSettings(void)
 {
-	windowWidth = 320;
-	windowHeight = 240;
+	windowWidth = 640;
+	windowHeight = 480;
 	fullscreen = false;
 	useVsync = true; // Now that uncapped is the default...
 	stretch = 0;
@@ -40,10 +40,10 @@ void Screen::init(const ScreenSettings& settings)
 	stretchMode = settings.stretch;
 	isFiltered = settings.linearFilter;
 	vsync = settings.useVsync;
-	filterSubrect.x = 1;
-	filterSubrect.y = 1;
-	filterSubrect.w = 318;
-	filterSubrect.h = 238;
+	filterSubrect.x = 0;
+	filterSubrect.y = 0;
+	filterSubrect.w = 320;
+	filterSubrect.h = 240;
 
 	SDL_SetHintWithPriority(
 		SDL_HINT_RENDER_SCALE_QUALITY,
@@ -317,8 +317,8 @@ void Screen::FlipScreen(void)
 	SDL_RenderCopy(
 		m_renderer,
 		m_screenTexture,
-		isFiltered ? &filterSubrect : NULL,
-		NULL
+                NULL,
+                &filterSubrect
 	);
 	SDL_RenderPresent(m_renderer);
 	SDL_RenderClear(m_renderer);
